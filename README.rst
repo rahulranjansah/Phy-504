@@ -9,3 +9,5 @@ Contents
 
 1. Finite Differencing
 2. Dampened Oscillation
+3. Zombie Apoclypse
+4. Excitations hydrogen
