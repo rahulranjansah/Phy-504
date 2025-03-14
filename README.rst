@@ -9,16 +9,19 @@ Contents
 
 1. Finite Differencing
 2. Dampened Oscillation
-3. Zombie Apoclypse
-4. Excitations hydrogen
 
 .. image:: results/harmonicosicillation10e0.png
    :width: 600
    :alt: Dampened Oscillation
 
+3. Zombie Apoclypse
+
 .. image:: results/zombie_apoclypse.png
    :width: 600
    :alt: Zombie Apoclypse
+
+4. Excitations hydrogen
+
 .. image:: results/hydrogenexcitation.png
    :width: 600
    :alt: Excitations hydrogen
