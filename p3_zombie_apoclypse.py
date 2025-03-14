@@ -78,6 +78,7 @@ euler_states_array = np.array(euler_states)
 f1_rk, f2_rk, f3_rk, f4_rk, f5_rk = runga_states_array.T
 f1_eu, f2_eu, f3_eu, f4_eu, f5_eu = euler_states_array.T
 
+plt.style.use("dark_background")
 
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 ax[0].plot(timestamps, f1_rk, label="Healthy (F1)", linestyle='solid')
@@ -89,7 +90,7 @@ ax[0].set_title("Runge-Kutta (RK4) Method")
 ax[0].set_xlabel("Time (hours)")
 ax[0].set_ylabel("Population Fraction")
 ax[0].legend()
-ax[0].grid()
+ax[0].grid(alpha=0.3)
 
 # Plot Euler method
 ax[1].plot(timestamps, f1_eu, label="Healthy (F1)", linestyle='solid')
@@ -101,7 +102,7 @@ ax[1].set_title("Euler Method")
 ax[1].set_xlabel("Time (hours)")
 ax[1].set_ylabel("Population Fraction")
 ax[1].legend()
-ax[1].grid()
+ax[1].grid(alpha=0.3)
 
 # Show the plots
 plt.tight_layout()

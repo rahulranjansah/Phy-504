@@ -12,6 +12,17 @@ Contents
 3. Zombie Apoclypse
 4. Excitations hydrogen
 
+.. image:: results/harmonicosicillation10e0.png
+   :width: 600
+   :alt: Dampened Oscillation
+
+.. image:: results/zombie_apoclypse.png
+   :width: 600
+   :alt: Zombie Apoclypse
+.. image:: results/hydrogenexcitation.png
+   :width: 600
+   :alt: Excitations hydrogen
+
 Atomic Units Conversion for scaling
 ===================================
 

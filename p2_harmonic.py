@@ -1,4 +1,3 @@
-# imports
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -53,6 +52,7 @@ def dampend_oscillations(omega: float, E_0: float) -> float:
     return x
 
 plots = []
+plt.style.use("dark_background")
 
 # plots all the plots with nested omega vals
 for E0_val in E_0:

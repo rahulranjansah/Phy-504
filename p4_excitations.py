@@ -58,7 +58,6 @@ def dc_dt(t, c):
             dc[i] += -1j / hbar * e0 * E_L(t) * c[j] * z_element * phase
     return dc
 
-
 # Runge-Kutta 4th order
 def rk4_step(t, c, dt):
     k1 = dc_dt(t, c)
@@ -83,8 +82,8 @@ for i in range(1, len(t_eval)):
 # Extract the solution
 c_solution_dict = {state: c_solution[:, i] for i, state in enumerate(states)}
 
-
 # Plot the results
+plt.style.use("dark_background")
 plt.figure(figsize=(10, 6))
 for (n, l, m), c_nlm in c_solution_dict.items():
     if np.max(np.abs(c_nlm)) > 1e-3:  # Only plot states with significant population
@@ -94,5 +93,5 @@ plt.xlabel("Time (atomic units)")
 plt.ylabel("Population $|c_{n,l,m}|^2$")
 plt.title("Time Evolution of Probability Amplitudes")
 plt.legend()
-plt.grid()
+plt.grid(alpha=0.4)
 plt.show()
