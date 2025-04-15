@@ -55,10 +55,9 @@ v[(x >= 0) & (x <= 10e-6)] = c0 / n_dielectric
 E = np.zeros((Nx, Nt))
 
 # Initial condition: Gaussian-modulated cosine
-E[:, 0] = np.exp(-((x - x0) / (c0 * tau))**2) * np.cos(omega * x / c0)
-
-# Assuming zero initial velocity: E[:, 1] = E[:, 0]
-E[:, 1] = E[:, 0].copy()
+# Initial electric field
+E[:, 0] = np.exp(-((x - x0) / (c0 * tau))**2) * np.cos(omega * (x-x0) / c0)
+E[:, 1] = np.exp(-((x - x0 - c0*dt) / (c0 * tau))**2) * np.cos(omega * (x-x0-c0*dt) / c0)
 
 # -----------------------------
 # Finite differencing loop for time = T, n is time and i is spatial
@@ -70,8 +69,8 @@ for n in range(1, Nt - 1):
                      c_ratio * (E[i+1, n] - 2 * E[i, n] + E[i-1, n]))
 
     # Dirichlet boundaries (Boundary value conditions)
-    E[0, n+1] = 0
-    E[-1, n+1] = 0
+    E[0, :] = 0
+    E[-1, :] = 0
 
 # print(E)
 
@@ -105,7 +104,7 @@ plt.show()
 # -----------------------------
 # Snapshots at Selected Times
 # -----------------------------
-snapshot_times_fs = [0, 50, 100, 150, 200]  # times in femtoseconds
+snapshot_times_fs = [0, 10, 20, 30, 40, 50, 60, 70, 80]  # times in femtoseconds
 snapshot_indices = [min(int(t_fs * 1e-15 / dt), Nt - 1) for t_fs in snapshot_times_fs]
 
 fig, ax = plt.subplots(figsize=(10, 6))
