@@ -26,6 +26,14 @@ Contents
    :width: 600
    :alt: Excitations hydrogen
 
+.. image:: results/initialvalsimpleslab.png
+   :width: 600
+   :alt: Dielectric Simple slab waves snapshots
+
+.. image:: results/dielectricdispersivelab.png
+   :width: 600
+   :alt: Dielectric Dispersive slab snapshots
+
 Atomic Units Conversion for scaling
 ===================================
 

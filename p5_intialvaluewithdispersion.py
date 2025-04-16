@@ -20,13 +20,13 @@ import matplotlib.animation as animation
 # -----------------------------
 # Constants and Parameters
 # -----------------------------
-c0 = 3e8  # Speed of light in vacuum (m/s)
-epsilon_0 = 8.854187817e-12  # Vacuum permittivity (F/m)
+c0 = 3e8  # (m/s)
+epsilon_0 = 8.854187817e-12  #  permittivity (F/m)
 mu_0 = 4e-7 * np.pi
 
-# Dispersive polarization parameters
-omega_0 = 2.63e16 # Resonant frequency (rad/s)
-omega_i = 2.35e16  # Oscillator frequency (rad/s)
+# Dispersive polarization params
+omega_0 = 2.63e16 # Resonant frequency
+omega_i = 2.35e16  # Oscillator frequency
 
 # Spatial domain
 x_min, x_max = -10e-6, 30e-6
@@ -36,7 +36,7 @@ dx = x[1] - x[0]
 
 # Time domain
 T = 200e-15  # Total simulation time
-dt = 0.25 * dx / c0  # Time step satisfying CFL
+dt = 0.25 * dx / c0  # dt << pi * 10^-17 to deal w/ dispersion
 print(dt)
 Nt = int(T / dt)
 t = np.linspace(0, T, Nt)
@@ -97,12 +97,11 @@ for n in range(1, Nt - 1):
 # -----------------------------
 # Plot Snapshots
 # -----------------------------
-snapshot_times_fs = [0, 10, 20, 30, 40, 50, 60, 70]  # femtoseconds
+snapshot_times_fs = [10, 30, 50, 70, 90, 120, 150]  # femtoseconds
 snapshot_indices = [min(int((fs * 1e-15) / dt), Nt - 1) for fs in snapshot_times_fs]
 
 fig, ax = plt.subplots(figsize=(10, 6))
 for idx in snapshot_indices:
-    # ax.plot(x * 1e6, E[:, idx], label=f't = {t[idx]*1e15:.1f} fs')
     ax.plot(x * 1e6, (E[:, idx]), label=f't = {t[idx]*1e15:.1f} fs')
 
 
@@ -115,10 +114,8 @@ ax.grid(True)
 plt.tight_layout()
 plt.show()
 
-# # # # -----------------------------
-# # # # Animation
-# # # # -----------------------------
-plt.style.use("dark_background")
+# Animation
+# plt.style.use("dark_background")
 fig, ax = plt.subplots(figsize=(10, 4))
 line, = ax.plot(x * 1e6, E[:, 0], color='#00FFFF', lw=2)
 
@@ -138,5 +135,31 @@ def update(frame):
     return line, time_text
 
 ani = animation.FuncAnimation(fig, update, frames=range(0, Nt, 3), interval=20, blit=True)
+plt.tight_layout()
+plt.show()
+
+
+# -----------------------------
+# Plot each snapshot individually
+# -----------------------------
+
+
+dielectric_start = 10e-6
+dielectric_end = 20e-6
+fig, axes = plt.subplots(len(snapshot_indices), 1, figsize=(10, 2.5 * len(snapshot_indices)), sharex=True)
+
+for i, idx in enumerate(snapshot_indices):
+    ax = axes[i]
+    ax.plot(x * 1e6, E[:, idx], color='blue')
+    ax.axvspan(dielectric_start * 1e6, dielectric_end * 1e6, color='gray', alpha=0.3, label='Dispersive Dielectric Polarized slab')
+    ax.set_ylabel("E(x)")
+    ax.set_title(f"t = {snapshot_times_fs[i]} fs")
+    ax.set_ylim(-1, 1)
+    ax.grid(True)
+    if i == 0:
+        ax.legend()
+
+
+axes[-1].set_xlabel("x (μm)")
 plt.tight_layout()
 plt.show()
